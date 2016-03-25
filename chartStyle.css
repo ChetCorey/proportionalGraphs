@@ -1,0 +1,25 @@
+.tag {
+  margin-top: 5px;
+}
+.circleContainer {
+  display: inline-block;
+  text-align: center;
+  margin: 20px;
+  min-width: 80px;
+}
+.circle {
+  border-radius: 50%;
+}
+#chart {
+  border: 1px black solid;
+  border-radius: 10px;
+  background-color: #eeeeee;
+  position: relative;
+}
+#legend {
+  margin: 20px;
+  width:200px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}

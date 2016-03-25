@@ -5,37 +5,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="chartStyle.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+  <script type="text/javascript" src="chartBuild.js"></script>
 </head>
-<style>
-  .tag {
-    margin-top: 5px;
-  }
-  .circleContainer {
-    display: inline-block;
-    text-align: center;
-    margin: 20px;
-    min-width: 80px;
-  }
-  .circle {
-    border-radius: 50%;
-  }
-  #chart {
-    border: 1px black solid;
-    border-radius: 10px;
-    background-color: #eeeeee;
-    position: relative;
-  }
-  #legend {
-    margin: 20px;
-    width:200px;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-</style>
+
 <body>
   <div class="container">
     <h1 class="text-center">Homicides, Death Sentences and Executions</h1>
@@ -46,68 +25,10 @@
           <li class="list-group-item">
             <h4 class="list-group-item-heading text-center">Index</h4>
           </li>
+            <a href="#" class="list-group-item">Add New Record</a>
         </ul>
       </div>
     </div>
   </div>
-
-  <script>
-    var records = [
-      {"name": "Homicides", "value": 518904, "color": 'AA4444'},
-      {"name": "Sentences", "value": 8092, "color": '773377'},
-      {"name": "Executions", "value": 1422, "color": '000000'}
-    ]
-
-    function toArea(diameter) {return area = Math.PI*Math.pow((diameter/2), 2)}
-    function toDiameter(area) {return diameter = 2*Math.sqrt(area/Math.PI)}
-
-    var recordsValues = _.map(records, 'value');
-    var circleMax = window.innerHeight - 200;
-    var max = _.max(recordsValues);
-    var multiplier = toArea(circleMax)/max;
-
-    function circleCenter(circleSize) {
-      if (circleSize < 40) {
-        return "; margin-left: 20px"
-      } else {
-        return ""
-      }
-    };
-
-    function buildCircles(record) {
-      var circleSize = toDiameter(record.value * multiplier);
-
-      $(".chart").append(
-        "<div class='circleContainer'>"+
-          "<div class='circle' style='"+
-            "height: "+circleSize+"px; "+
-            "width: "+circleSize+"px; "+
-            "background-color: #"+record.color+
-            circleCenter(circleSize)+
-          "'></div>"+
-          "<div class='tag'>"+record.name+"</div>"+
-        "</div>"
-      );
-    };
-
-    function buildLegend(record) {
-      var circleSize = toDiameter(record.value * multiplier);
-      $(".list").append(
-        "<li class='list-group-item'>"+
-          "<span style='font-size: 30px;color: #"+record.color+"'>●</span>"+
-          "<span class='pull-right'>"+
-            record.name+"<br>"+record.value+
-          "</span>"+
-        "</li>"
-      );
-    };
-
-    $( document ).ready(function() {
-      records.forEach(function(record) {
-        buildCircles(record)
-        buildLegend(record)
-      });
-    });
-  </script>
 </body>
 </html>
